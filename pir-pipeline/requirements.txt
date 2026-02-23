@@ -1,0 +1,33 @@
+# PIR Pipeline — Physical Inspection & Reasoning
+# Assembly101 × Cosmos Reason2
+#
+# Install: pip install -r requirements.txt
+
+# ── Vision ──────────────────────────────────────────────
+opencv-python-headless>=4.9.0
+pillow>=10.0.0
+numpy>=1.24.0
+supervision>=0.21.0
+
+# ── Object Detection ────────────────────────────────────
+transformers>=4.50.0          # Grounding DINO
+accelerate>=0.27.0
+
+# ── SAM2 Video Tracking ─────────────────────────────────
+# Install separately (not on PyPI stable):
+# pip install "git+https://github.com/facebookresearch/sam2.git"
+
+# ── Cosmos Reason2 via vLLM ─────────────────────────────
+vllm>=0.8.0                   # vLLM server
+openai>=1.12.0                # OpenAI-compatible client
+
+# ── HuggingFace ─────────────────────────────────────────
+huggingface-hub>=0.21.0
+tokenizers>=0.15.0
+
+# ── Graph ───────────────────────────────────────────────
+networkx>=3.2
+
+# ── Utils ───────────────────────────────────────────────
+pyyaml>=6.0
+tqdm>=4.66.0
