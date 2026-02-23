@@ -403,14 +403,25 @@ def perceive(
 
     frames, indices = extract_frames(video.path, start, end, video.fps, max_frames)
 
-    print("  Running Grounding DINO on init frame...")
-    init_dets = run_dino(frames[0], target.obj1, target.obj2, device)
-
+    # DINO en el frame del mistake onset, no en el padding previo
+    dino_frame_idx = 0
+    for i, abs_idx in enumerate(indices):
+        if abs_idx >= target.start:
+            dino_frame_idx = i
+            break
+    print(f"  Running Grounding DINO on frame {indices[dino_frame_idx]} "
+          f"(t={indices[dino_frame_idx]/video.fps:.1f}s — mistake onset)...")
+    init_dets = run_dino(frames[dino_frame_idx], target.obj1, target.obj2, device)
+    
     if use_sam2 and init_dets:
         try:
             print("  Running SAM2 video tracking...")
-            tracked = run_sam2(frames, indices, init_dets, device)
-        except ImportError:
+            frames_for_sam = frames[dino_frame_idx:]
+            indices_for_sam = indices[dino_frame_idx:]
+            tracked_sam = run_sam2(frames_for_sam, indices_for_sam, init_dets, device)
+            tracked = [[] for _ in range(dino_frame_idx)] + tracked_sam
+        except Exception as e:
+            print(f"  SAM2 failed ({type(e).__name__}: {e}) — using static DINO detections")
             tracked = dino_only_tracking(frames, init_dets)
     else:
         tracked = dino_only_tracking(frames, init_dets)
