@@ -139,3 +139,5 @@ Cosmos Reason2 is trained on physical AI datasets with explicit chain-of-thought
 Claude and GPT-4 produce direct answers. Cosmos produces **auditable physical reasoning** — which is what industrial inspection systems require.
 
 uv run python scripts/run_pipeline.py --video /teamspace/studios/this_studio/pir-pipeline/videos/C10095_rgb.mp4 --annot /teamspace/studios/this_studio/pir-pipeline/annot/nusar-2021_action_both_9033-c02a_9033_user_id_2021-02-04_140532.csv
+
+uv run python tests/test_percieve.py --video /teamspace/studios/this_studio/pir-pipeline/videos/C10095_rgb.mp4 --annot /teamspace/studios/this_studio/pir-pipeline/annot/nusar-2021_action_both_9033-c02a_9033_user_id_2021-02-04_140532.csv

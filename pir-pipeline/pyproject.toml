@@ -3,7 +3,7 @@ name = "this-studio"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = "==3.13.*"  # Pin exacto a Python 3.13
+requires-python = "==3.12.*"
 dependencies = [
     "accelerate>=0.27.0",
     "blake3>=1.0.8",
@@ -19,8 +19,13 @@ dependencies = [
     "pyyaml>=6.0",
     "supervision>=0.21.0",
     "tokenizers>=0.15.0",
-    "torchvision>=0.23.0,<0.24.0",  # Compatible con vllm 0.11.0
+    "torch==2.5.1",              # ← SAM2 se compila contra esto
+    "torchvision==0.20.1",       # ← Compatible con torch 2.5.1
     "tqdm>=4.66.0",
     "transformers>=4.48.0",
-    "vllm==0.11.0",
+    "vllm==0.6.5",               # ← Última versión con PyTorch 2.5.1
+    "sam-2",
 ]
+
+[tool.uv.sources]
+sam-2 = { git = "https://github.com/facebookresearch/sam2.git" }

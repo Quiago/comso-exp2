@@ -3,7 +3,7 @@ set -e
 
 MODEL="nvidia/Cosmos-Reason2-2B"
 PORT=8000
-GPU_MEM=0.75
+GPU_MEM=0.70
 MAX_LEN=16384
 LOG="/tmp/vllm_cosmos.log"
 PID_FILE="/tmp/vllm_cosmos.pid"
@@ -42,6 +42,7 @@ nohup uv run vllm serve "$MODEL" \
     --gpu-memory-utilization "$GPU_MEM" \
     --reasoning-parser qwen3 \
     --dtype bfloat16 \
+    --quantization fp8 \
     --trust-remote-code \
     --allowed-local-media-path "$(pwd)" \
     --media-io-kwargs '{"video": {"num_frames": -1}}' \
